@@ -1,3 +1,19 @@
+
+<?php
+
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
+
+if (isset($_POST['logout'])) {
+
+    session_destroy();
+  
+    header("Location: index.php");
+    exit; 
+}
+
+?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -18,17 +34,28 @@
 						<a href="listar.php">Listar Personas</a>
 					</li>
 					<li>
-						<a href="#">Fake login</a>
+						<a href="login.php">Login</a>
 					</li>
+					
 				</ul>
+
 			</nav>
+            <?php
+            if (isset($_SESSION['username'])) {
+                echo "<p>Bienvenido, " . $_SESSION['username'] . "</p>";
+                
+                echo '<form method="POST" action="">
+						<input type="submit" name="logout" value="Cerrar sesión">
+					</form>';
+            }
+            ?>
 		</header>
 		<br><br><br><br><br>
 		<section>
 		</section>
 		<br><br><br><br><br>
 		<footer>
-			&copy; WCG Developer
+			&copy; Php Developer
 		</footer>
 	</div>
 </body>
