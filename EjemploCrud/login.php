@@ -1,4 +1,3 @@
-
 <?php
 require_once 'config.php';
 
@@ -18,13 +17,11 @@ if (!empty($_POST)) {
     ]);
 
     if ($query->rowCount() > 0) {
-        
         $_SESSION['username'] = $username;
-        echo "¡Inicio de sesión exitoso!";
         header("Location: index.php");
         exit; 
     } else {
-        echo "Nombre de usuario o contraseña incorrectos";
+        $error_message = "Nombre de usuario o contraseña incorrectos";
     }
 }
 ?>
@@ -35,25 +32,45 @@ if (!empty($_POST)) {
     <meta charset="UTF-8">
     <title>Iniciar sesión</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .login-container {
+            margin-top: 100px;
+            background-color: #fff;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .login-title {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+    </style>
 </head>
 <body>
     <div class="container">
         <div class="row justify-content-center">
-            <div class="col-md-6">
-                <h2>Iniciar sesión</h2>
+            <div class="col-md-6 login-container">
+                <h2 class="login-title">Iniciar sesión</h2>
+                <?php if(isset($error_message)): ?>
+                    <div class="alert alert-danger" role="alert">
+                        <?php echo $error_message; ?>
+                    </div>
+                <?php endif; ?>
                 <form method="POST" action="login.php">
                     <div class="form-group">
-                        <label for="username">Usuario:</label>
-                        <input type="text" class="form-control" id="username" name="username">
+                        <input type="text" class="form-control" id="username" name="username" placeholder="Usuario">
                     </div>
                     <div class="form-group">
-                        <label for="password">Contraseña:</label>
-                        <input type="password" class="form-control" id="password" name="password">
+                        <input type="password" class="form-control" id="password" name="password" placeholder="Contraseña">
                     </div>
-                    <button type="submit" class="btn btn-primary">Iniciar sesión</button>
+                    <button type="submit" class="btn btn-primary btn-block">Iniciar sesión</button>
                 </form>
-                <br>
-                <a href="registro.php" class="btn btn-secondary">Registrarse</a>
+                <div class="mt-3 text-center">
+                    <a href="registro.php" class="btn btn-link">¿No tienes una cuenta? Regístrate aquí</a>
+                </div>
             </div>
         </div>
     </div>

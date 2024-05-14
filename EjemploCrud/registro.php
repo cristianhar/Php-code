@@ -14,10 +14,10 @@ if (!empty($_POST)) {
     ]);
 
     if ($resultado) {
-        echo "¡Usuario registrado correctamente!";
         header("Location: login.php");
+        exit;
     } else {
-        echo "Error al registrar el usuario";
+        $error_message = "Error al registrar el usuario";
     }
 }
 ?>
@@ -28,26 +28,44 @@ if (!empty($_POST)) {
     <meta charset="UTF-8">
     <title>Registro de usuario</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .registration-container {
+            margin-top: 100px;
+            background-color: #fff;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .registration-title {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+    </style>
 </head>
 <body>
     <div class="container">
-        <div class="row">
-            <div class="col-md-6 offset-md-3">
-                <h2>Registro de usuario</h2>
+        <div class="row justify-content-center">
+            <div class="col-md-6 registration-container">
+                <h2 class="registration-title">Registro de usuario</h2>
+                <?php if(isset($error_message)): ?>
+                    <div class="alert alert-danger" role="alert">
+                        <?php echo $error_message; ?>
+                    </div>
+                <?php endif; ?>
                 <form method="post" action="">
                     <div class="form-group">
-                        <label for="username">Usuario:</label>
-                        <input type="text" class="form-control" id="username" name="username">
+                        <input type="text" class="form-control" id="username" name="username" placeholder="Usuario">
                     </div>
                     <div class="form-group">
-                        <label for="password">Contraseña:</label>
-                        <input type="password" class="form-control" id="password" name="password">
+                        <input type="password" class="form-control" id="password" name="password" placeholder="Contraseña">
                     </div>
                     <div class="form-group">
-                        <label for="email">Email:</label>
-                        <input type="email" class="form-control" id="email" name="email">
+                        <input type="email" class="form-control" id="email" name="email" placeholder="Email">
                     </div>
-                    <button type="submit" class="btn btn-primary">Registrar</button>
+                    <button type="submit" class="btn btn-primary btn-block">Registrar</button>
                 </form>
             </div>
         </div>
