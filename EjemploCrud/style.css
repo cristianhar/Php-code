@@ -1,0 +1,62 @@
+
+header {
+    background-color: #343a40;
+    color: #fff;
+    padding: 15px;
+    margin-bottom: 30px;
+    border-radius: 5px;
+    
+}
+
+header h1 {
+    margin-bottom: 0;
+    
+}
+
+nav ul {
+    padding: 0;
+    list-style: none;
+    margin-top: 10px;
+    
+}
+
+nav ul li {
+    display: inline;
+    margin-right: 20px;
+    
+}
+
+nav ul li a {
+    color: #fff;
+    text-decoration: none;
+    transition: color 0.3s;
+    
+}
+
+nav ul li a:hover {
+    color: #adb5bd;
+    
+}
+section {
+    margin-bottom: 150px; /* Ajusta este valor según la altura de tu footer */
+    margin-left: 10px;
+}
+
+
+footer {
+    background-color: #343a40;
+    color: #fff;
+    padding: 20px 0;
+    text-align: center;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+
+.contenedor {
+    width: 100%;
+    justify-content: space-evenly;
+    align-items: center;
+    display: flex;
+  }
+  

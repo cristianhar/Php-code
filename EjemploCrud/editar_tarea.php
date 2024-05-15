@@ -1,6 +1,13 @@
 <?php
 require_once 'config.php';
+session_start(); 
 
+
+if (!isset($_SESSION['username'])) {
+ 
+    header("Location: login.php");
+    exit; 
+}
 if (!empty($_GET['id'])) {
     $id = $_GET['id'];
 
@@ -34,11 +41,18 @@ if (!empty($_POST['nombre'])) {
 <head>
     <meta charset="UTF-8">
     <title>Editar Tarea</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <?php include 'style.php'; ?>
+
 </head>
 <body>
-    <div class="container">
+    <header>
+        <h1>Editar Tarea</h1>
+        <?php include 'nav.php'; ?>
+
+    </header>
+    <section>
         <h2>Editar Tarea</h2>
+        <p>En esta sección se edita una tarea.</p>
         <form method="post">
             <div class="form-group">
                 <label for="nombre">Nombre:</label>
@@ -50,6 +64,8 @@ if (!empty($_POST['nombre'])) {
             </div>
             <button type="submit" class="btn btn-primary">Actualizar</button>
         </form>
-    </div>
+    </section>
+
+    <?php include 'footer.php'; ?>
 </body>
 </html>

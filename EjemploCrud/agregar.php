@@ -1,62 +1,95 @@
-<?php 
-	require_once 'config.php';
-	$resultado = false;
+<?php
+require_once 'config.php';
+$resultado = false;
 
-	//validar que post (super global=array) venga con datos
-	if (!empty($_POST)){
-		//entrada de datos
-		$nombre = $_POST['nombre'];
-		$edad = $_POST['edad'];
+session_start();
 
-		//operaciones
-			//Instruccion SQL: Insercion de los datos en la tabla de la BD
-		$sql = "INSERT INTO tblpersona(nombre, edad) VALUES (:nom, :ed)";
-			//Preparar (establecer) la conexion que va a ejecutar la Instruccion SQL
-		$query = $pdo->prepare($sql);
 
-		//entregarlos
-		//el metodo execute tiene un arreglo relacional que permite llevarle a etiquetas los datos de variables
-		$resultado = $query->execute([
-			'nom' => $nombre,
-			'ed' => $edad
-		]);
-	}
+if (!isset($_SESSION['username'])) {
+
+	header("Location: login.php");
+	exit;
+}
+if (!empty($_POST)) {
+	$nombre = $_POST['nombre'];
+	$edad = $_POST['edad'];
+	$email = $_POST['email'];
+	$telefono = $_POST['telefono'];
+	$direccion = $_POST['direccion'];
+	$ciudad = $_POST['ciudad'];
+	$pais = $_POST['pais'];
+
+
+	$sql = "INSERT INTO tblpersona(nombre, edad, email, telefono, direccion, ciudad, pais) VALUES (:nom, :ed, :email, :telefono, :direccion, :ciudad, :pais)";
+
+	$query = $pdo->prepare($sql);
+
+	$resultado = $query->execute([
+		'nom' => $nombre,
+		'ed' => $edad,
+		'email' => $email,
+		'telefono' => $telefono,
+		'direccion' => $direccion,
+		'ciudad' => $ciudad,
+		'pais' => $pais
+
+
+	]);
+}
 ?>
 
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
 	<meta charset="utf-8">
-	<title>GestionPersonas</title>
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+	<title>Gestion de Personas</title>
+	<?php include 'style.php'; ?>
+
 </head>
+
 <body>
-	<div class="container">
-		<header>
-			<h1>Agregar Persona</h1>
-			<a href="index.php">Home</a>
-		</header>
-		<br><br><br><br><br>
-		<section>
-			<?php 
-				if ($resultado){
-					echo '<div class="alert alert-success">Registro Ok</div>';
-				}
-			?>
-			<form action="agregar.php" method="post">
-				<label>Nombre</label>
-				<input type="text" name="nombre" id="nombre">
-				<br><br>
-				<label>Edad</label>
-				<input type="text" name="edad" id="edad">
-				<br><br>
-				<input type="submit" value="Registrar">
-			</form>
-		</section>
-		<br><br><br><br><br>
-		<footer>
-			&copy; WCG Developer
-		</footer>
-	</div>
+
+	<header>
+		<h1>Agregar Persona</h1>
+		<?php include 'nav.php'; ?>
+	</header>
+	<section>
+		<?php
+		if ($resultado) {
+			echo '<div class="alert alert-success">Registrado exitosamente</div>';
+		}
+		?>
+		<form action="agregar.php" method="post" class="form-group">
+			<label for="nombre">Nombre</label>
+			<input type="text" name="nombre" id="nombre" class="form-control" required>
+			<br>
+			<label for="edad">Edad</label>
+			<input type="text" name="edad" id="edad" class="form-control" required>
+			<br>
+			<label for="email">Email</label>
+			<input type="email" name="email" id="email" class="form-control" required>
+			<br>
+			<label for="telefono">Teléfono</label>
+			<input type="tel" name="telefono" id="telefono" class="form-control" required>
+			<br>
+			<label for="direccion">Dirección</label>
+			<input type="text" name="direccion" id="direccion" class="form-control" required>
+			<br>
+			<label for="ciudad">Ciudad</label>
+			<input type="text" name="ciudad" id="ciudad" class="form-control" required>
+			<br>
+			<label for="pais">País</label>
+			<input type="text" name="pais" id="pais" class="form-control" required>
+			<br>
+			<input type="submit" value="Registrar" class="btn btn-primary">
+			<input type="reset" value="Limpiar Formulario" class="btn btn-danger">
+		</form>
+
+
+	</section>
+	<br><br>
+	<?php include 'footer.php'; ?>
 </body>
+
 </html>

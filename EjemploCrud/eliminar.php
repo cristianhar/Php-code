@@ -1,14 +1,22 @@
 <?php
     include_once 'config.php';
 
-    $nombre = $_GET['nombre'];
+    session_start(); 
+    
+    
+    if (!isset($_SESSION['username'])) {
+     
+        header("Location: login.php");
+        exit; 
+    }
+    $email = $_GET['email'];
 
     //Instruccion delete
-    $sql = "DELETE FROM tblpersona WHERE nombre=:nombre";
+    $sql = "DELETE FROM tblpersona WHERE email=:email";
 
     $query = $pdo->prepare($sql);
     $query->execute([
-        'nombre' => $nombre
+        'email' => $email
     ]);
 
     //Ejecutar en el archivo listar.php

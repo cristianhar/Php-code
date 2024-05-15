@@ -27,7 +27,7 @@ if (!empty($_POST)) {
 <head>
     <meta charset="UTF-8">
     <title>Registro de usuario</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <?php include 'style.php'; ?>
     <style>
         body {
             background-color: #f8f9fa;

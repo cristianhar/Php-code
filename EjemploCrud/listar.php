@@ -1,4 +1,14 @@
 <?php
+session_start(); 
+
+
+if (!isset($_SESSION['username'])) {
+ 
+    header("Location: login.php");
+    exit; 
+}
+?>
+<?php
 	require_once 'config.php';
 	$queryResultado = $pdo->query("SELECT * FROM tblpersona");
 ?>
@@ -8,41 +18,59 @@
 <head>
 	<meta charset="utf-8">
 	<title>Listado Personas</title>
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+	<?php include 'style.php'; ?>
 </head>
 <body>
-	<div class="container">
+	
 		<header>
-			<h1>Listado de Personas</h1>
-			<a href="index.php">Home</a>
+			<h1>Gestión de Personas</h1>
+			<?php include 'nav.php'; ?>
 		</header>
-		<br><br><br><br><br>
-		<section>
-			<table class="table">
-				<tr>
-					<th>Nombre</th>
-					<th>Edad</th>
+	
+	<section>
+	<a href="agregar.php" class="btn btn-success">
+            <span class="glyphicon glyphicon-plus"></span> Crear Personas
+        </a>
+        <br><br>
+		<h2>Lista de Personas</h2>
+		<p>En esta sección se muestran las personas creadas.</p>
 
-					<th>Edit</th>
-					<th>Delete</th>
-				</tr>
-				<!-- Traer los datos -->
-				<?php foreach ($queryResultado as $row): ?>	
-					<tr>
-						<td><?= $row["nombre"]; ?></td>
-						<td><?= $row["edad"]; ?></td>
-						<!-- Agregar edit y delete a cada registro -->
-						<td><a href="actualizar.php?nombre=<?= $row['nombre']; ?>">Editar</a></td>
-						<td><a href="eliminar.php?nombre=<?= $row['nombre']; ?>">Eliminar</a></td>
-					</tr>
-				<?php endforeach; ?>
-			</table>
-		</section>
-		<br><br><br><br><br>
-		<footer>
-			&copy; WCG Developer
-		</footer>
-	</div>
+    <table class="table">
+        <thead class="thead-dark">
+            <tr>
+                <th>Nombre</th>
+                <th>Edad</th>
+                <th>Email</th>
+                <th>Teléfono</th>
+                <th>Dirección</th>
+                <th>Ciudad</th>
+                <th>País</th>
+                <th>Editar</th>
+                <th>Eliminar</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Traer los datos -->
+            <?php foreach ($queryResultado as $row): ?>
+                <tr>
+                    <td><?= $row["nombre"]; ?></td>
+                    <td><?= $row["edad"]; ?></td>
+                    <td><?= $row["email"]; ?></td>
+                    <td><?= $row["telefono"]; ?></td>
+                    <td><?= $row["direccion"]; ?></td>
+                    <td><?= $row["ciudad"]; ?></td>
+                    <td><?= $row["pais"]; ?></td>
+                    <!-- Agregar edit y delete a cada registro -->
+                    <td><a href="actualizar.php?email=<?= $row['email']; ?>" class="btn btn-primary">Editar</a></td>
+                    <td><a href="eliminar.php?email=<?= $row['email']; ?>" class="btn btn-danger">Eliminar</a></td>
+                </tr>
+            <?php endforeach; ?>
+        </tbody>
+    </table>
+</section>
+
+		
+	<?php include 'footer.php'; ?>
 </body>
 </html>
 

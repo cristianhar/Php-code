@@ -1,76 +1,121 @@
 <?php
-	include_once 'config.php';
-	$resultado = false;
 
-	if (!empty($_POST)) {
-		//Si trae los datos realizar la actualizacion
-		$nombre = $_POST['nombre'];
-		$newEdad = $_POST['edad'];
+session_start();
 
-		$sql = "UPDATE tblpersona SET edad=:ed WHERE nombre=:nom";
 
-		$query = $pdo->prepare($sql);
+if (!isset($_SESSION['username'])) {
 
-		$resultado = $query->execute([
-			'nom' => $nombre,
-			'ed' => $newEdad
-		]);
+	header("Location: login.php");
+	exit;
+}
+include_once 'config.php';
+$resultado = false;
 
-		$edadValue = $newEdad;
-	} else {
-		//Si no trae los datos, realizar una consulta para obtener los datos desde la bd para luego realizar la actualizacion
-		$nombre = $_GET['nombre'];
+if (!empty($_POST)) {
+	// Si trae los datos, realizar la actualización
+	$nombre = $_POST['nombre'];
+	$newEdad = $_POST['edad'];
+	$email = $_POST['email'];
+	$telefono = $_POST['telefono'];
+	$direccion = $_POST['direccion'];
+	$ciudad = $_POST['ciudad'];
+	$pais = $_POST['pais'];
 
-		$sql = "SELECT * FROM tblpersona WHERE nombre=:nombre";
-		$query = $pdo->prepare($sql);
+	$sql = "UPDATE tblpersona SET nombre=:nom, edad=:ed, email=:email, telefono=:tel, direccion=:dir, ciudad=:ciud, pais=:pais WHERE email=:email";
 
-		$query->execute([
-			'nombre' => $nombre			
-		]);
+	$query = $pdo->prepare($sql);
 
-		//Traer los registros a traves de un array asociativo con dos valores nombre y edad
-		//Por que asociativo: Por que la edad debe corresponder al nombre que se esta consultando
-		$row = $query->fetch(PDO::FETCH_ASSOC);
-		$nombreValue = $row['nombre'];
-		$edadValue = $row['edad'];
+	$resultado = $query->execute([
+		'nom' => $nombre,
+		'ed' => $newEdad,
+		'email' => $email,
+		'tel' => $telefono,
+		'dir' => $direccion,
+		'ciud' => $ciudad,
+		'pais' => $pais
+	]);
 
-		//Llevar las variables $nombreValue y $edadValue como valores de los input
-	}
-	
+	$edadValue = $newEdad;
+} else {
+	// Si no trae los datos, realizar una consulta para obtener los datos desde la BD para luego realizar la actualización
+	$email = $_GET['email'];
+
+	$sql = "SELECT * FROM tblpersona WHERE email=:email";
+	$query = $pdo->prepare($sql);
+
+	$query->execute([
+		'email' => $email
+	]);
+
+	// Traer los registros a través de un array asociativo con los valores correspondientes
+	$row = $query->fetch(PDO::FETCH_ASSOC);
+	$nombre = $row['nombre'];
+	$edadValue = $row['edad'];
+	$email = $row['email'];
+	$telefono = $row['telefono'];
+	$direccion = $row['direccion'];
+	$ciudad = $row['ciudad'];
+	$pais = $row['pais'];
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
 	<meta charset="utf-8">
 	<title>Actualizar Persona</title>
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+	<?php include 'style.php'; ?>
 </head>
 <body>
-	<div class="container">
-		<header>
-			<h1>Actualizar Datos Persona</h1>
-			<a href="index.php">Home</a>
-			<a href="listar.php">Regresar</a>
-			<?php
-				if ($resultado){
-					echo '<div class="alert alert-success">Registro Ok</div>';
-				} 
-			?>
-		</header>
-		<br><br><br><br><br>
-		<section>
-			<form action="actualizar.php" method="post">
-				<label>Nueva Edad</label>
-				<input type="text" name="edad" id="edad">
-				<br>
-				<input type="hidden" name="nombre" id="nombre" value="<?php echo $nombre ?>">
-				<input type="submit" value="Actualizar">
-			</form>
-		</section>
-		<br><br><br><br><br>
-		<footer>
-			&copy; WCG Developer
-		</footer>
-	</div>
+	<header>
+		<h1>Actualizar Datos Persona</h1>
+		<?php include 'nav.php'; ?>
+		<?php
+		if ($resultado) {
+			echo '<div class="alert alert-success">Datos modificados exitosamente</div>';
+		}
+		?>
+	</header>
+
+	<section>
+
+		<h2>Actualizar datos</h2>
+		<p>En esta sección se actualizan los datos de la persona seleccionada.</p>
+		<form action="actualizar.php" method="post">
+			<div class="form-group">
+				<label for="nombre">Nombre</label>
+				<input type="text" name="nombre" id="nombre" class="form-control" value="<?php echo $nombre; ?>" readonly>
+			</div>
+			<div class="form-group">
+				<label for="edad">Nueva Edad</label>
+				<input type="text" name="edad" id="edad" class="form-control" value="<?php echo $edadValue; ?>" required>
+			</div>
+			<div class="form-group">
+				<label for="email">Correo Electrónico</label>
+				<input type="email" name="email" id="email" class="form-control" value="<?php echo $email; ?>" readonly>
+			</div>
+			<div class="form-group">
+				<label for="telefono">Teléfono</label>
+				<input type="tel" name="telefono" id="telefono" class="form-control" value="<?php echo $telefono; ?>" required>
+			</div>
+			<div class="form-group">
+				<label for="direccion">Dirección</label>
+				<input type="text" name="direccion" id="direccion" class="form-control" value="<?php echo $direccion; ?>" required>
+			</div>
+			<div class="form-group">
+				<label for="ciudad">Ciudad</label>
+				<input type="text" name="ciudad" id="ciudad" class="form-control" value="<?php echo $ciudad; ?>" required>
+			</div>
+			<div class="form-group">
+				<label for="pais">País</label>
+				<input type="text" name="pais" id="pais" class="form-control" value="<?php echo $pais; ?>" required>
+			</div>
+			<input type="submit" value="Actualizar" class="btn btn-primary">
+		</form>
+	</section>
+	<br><br><br><br><br>
+	<?php include 'footer.php'; ?>
 </body>
+
 </html>

@@ -1,6 +1,14 @@
 <?php
 require_once 'config.php';
 
+session_start(); 
+
+
+if (!isset($_SESSION['username'])) {
+ 
+    header("Location: login.php");
+    exit; 
+}
 if (!empty($_POST['nombre'])) {
     $nombre = $_POST['nombre'];
     $descripcion = $_POST['descripcion'];
@@ -18,22 +26,29 @@ if (!empty($_POST['nombre'])) {
 <head>
     <meta charset="UTF-8">
     <title>Crear Tarea</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <?php include 'style.php'; ?>
 </head>
 <body>
-    <div class="container">
+    <header>
+        <h1>Creacion de tareas</h1>
+        <?php include 'nav.php'; ?>
+    </header>
+    <section>
         <h2>Crear Tarea</h2>
+        <p>En esta sección se crea una nueva tarea.</p>
         <form method="post">
             <div class="form-group">
-                <label for="nombre">Nombre:</label>
-                <input type="text" class="form-control" id="nombre" name="nombre">
+                <label for="nombre">Tarea:</label>
+                <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Ej Pagar Servicios">
             </div>
             <div class="form-group">
                 <label for="descripcion">Descripción:</label>
-                <textarea class="form-control" id="descripcion" name="descripcion"></textarea>
+                <textarea class="form-control" id="descripcion" name="descripcion" placeholder="Ej: Factura de Energia/Gas/Agua/Internet"></textarea>
             </div>
             <button type="submit" class="btn btn-primary">Crear</button>
         </form>
-    </div>
+        </section>
+
+        <?php include 'footer.php'; ?>
 </body>
 </html>
