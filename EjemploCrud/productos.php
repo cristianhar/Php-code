@@ -3,13 +3,13 @@
 include_once 'config.php';
 $queryProductos = $pdo->query("SELECT * FROM productos");
 
-session_start(); 
+session_start();
 
 
 if (!isset($_SESSION['username'])) {
-   
+
     header("Location: login.php");
-    exit; 
+    exit;
 }
 
 ?>
@@ -20,20 +20,25 @@ if (!isset($_SESSION['username'])) {
 <head>
     <meta charset="utf-8">
     <title>Lista de Productos</title>
-    <?php include 'style.php'; ?>
+    <?php include './include/style.php'; ?>
 
 <body>
     <header>
         <h1>Gestión de Productos</h1>
-        <?php include 'nav.php'; ?>
+        <?php include './include/nav.php'; ?>
     </header>
-    <a href="crear_producto.php" class="btn btn-success">
-        <span class="glyphicon glyphicon-plus"></span> Crear Productos
-    </a>
+
     <section>
+
+
         <h2>Lista de Productos</h2>
         <p>En esta sección se muestran los productos creados.</p>
 
+        <a href="crear_producto.php" class="btn btn-success">
+
+            <span class="bi bi-plus"></span>Añadir
+        </a>
+        <br><br>
         <table class="table">
             <thead class="thead-dark">
                 <tr>
@@ -41,7 +46,7 @@ if (!isset($_SESSION['username'])) {
                     <th>Nombre</th>
                     <th>Descripción</th>
                     <th>Stock</th>
-                    <th>Fecha de Ingreso</th>
+                    <th>Fecha Ingreso</th>
                     <th>Acciones</th>
                     <th></th>
                 </tr>
@@ -70,7 +75,7 @@ if (!isset($_SESSION['username'])) {
         </table>
     </section>
 
-    <?php include 'footer.php'; ?>
+    <?php include './include/footer.php'; ?>
 </body>
 
 </html>

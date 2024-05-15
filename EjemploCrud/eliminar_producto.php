@@ -1,13 +1,13 @@
 <?php
 require_once 'config.php';
 
-session_start(); 
+session_start();
 
 
 if (!isset($_SESSION['username'])) {
- 
+
     header("Location: login.php");
-    exit; 
+    exit;
 }
 if (!empty($_POST['id'])) {
     $id = $_POST['id'];
@@ -20,4 +20,3 @@ if (!empty($_POST['id'])) {
 } else {
     echo "ID de tarea no especificado. <a href='index.php'>Volver a la lista de productos</a>";
 }
-?>

@@ -14,7 +14,7 @@ if (!isset($_SESSION['username'])) {
 <head>
     <meta charset="UTF-8">
     <title>Lista de Tareas</title>
-    <?php include 'style.php'; ?>
+    <?php include './include/style.php'; ?>
 
 
 </head>
@@ -22,17 +22,17 @@ if (!isset($_SESSION['username'])) {
 <body>
     <header>
         <h1>Gestión de Tareas</h1>
-        <?php include 'nav.php'; ?>
+        <?php include './include/nav.php'; ?>
     </header>
 
     <section>
-        <a href="crear_tarea.php" class="btn btn-success">
-            <span class="glyphicon glyphicon-plus"></span> Crear Tarea
-        </a>
-        <br><br>
+
         <h2>Lista de Tareas</h2>
         <p>En esta sección se muestran las tareas creadas.</p>
-
+        <a href="crear_tarea.php" class="btn btn-success">
+            <span class="bi bi-plus"></span>Añadir
+        </a>
+        <br><br>
         <table class="table">
             <thead class="thead-dark">
                 <tr>
@@ -88,7 +88,7 @@ if (!isset($_SESSION['username'])) {
     </section>
 
 
-    <?php include 'footer.php'; ?>
+    <?php include './include/footer.php'; ?>
     <script>
         function mostrarTiempoTranscurrido(fechaCreacion, idElemento) {
             var fechaCreacionTimestamp = new Date(fechaCreacion).getTime();

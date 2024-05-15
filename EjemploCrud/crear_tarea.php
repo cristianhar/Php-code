@@ -1,13 +1,13 @@
 <?php
 require_once 'config.php';
 
-session_start(); 
+session_start();
 
 
 if (!isset($_SESSION['username'])) {
- 
+
     header("Location: login.php");
-    exit; 
+    exit;
 }
 if (!empty($_POST['nombre'])) {
     $nombre = $_POST['nombre'];
@@ -23,15 +23,17 @@ if (!empty($_POST['nombre'])) {
 
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <title>Crear Tarea</title>
-    <?php include 'style.php'; ?>
+    <?php include './include/style.php'; ?>
 </head>
+
 <body>
     <header>
         <h1>Creacion de tareas</h1>
-        <?php include 'nav.php'; ?>
+        <?php include './include/nav.php'; ?>
     </header>
     <section>
         <h2>Crear Tarea</h2>
@@ -46,9 +48,12 @@ if (!empty($_POST['nombre'])) {
                 <textarea class="form-control" id="descripcion" name="descripcion" placeholder="Ej: Factura de Energia/Gas/Agua/Internet"></textarea>
             </div>
             <button type="submit" class="btn btn-primary">Crear</button>
+            <br>
+            <br>
         </form>
-        </section>
+    </section>
 
-        <?php include 'footer.php'; ?>
+    <?php include './include/footer.php'; ?>
 </body>
+
 </html>

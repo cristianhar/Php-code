@@ -65,12 +65,14 @@ if (!empty($_POST)) {
 <head>
 	<meta charset="utf-8">
 	<title>Actualizar Persona</title>
-	<?php include 'style.php'; ?>
+	<?php include './include/style.php'; ?>
 </head>
+
 <body>
 	<header>
 		<h1>Actualizar Datos Persona</h1>
-		<?php include 'nav.php'; ?>
+		<?php include './include/nav.php'; ?>
+
 		<?php
 		if ($resultado) {
 			echo '<div class="alert alert-success">Datos modificados exitosamente</div>';
@@ -114,8 +116,8 @@ if (!empty($_POST)) {
 			<input type="submit" value="Actualizar" class="btn btn-primary">
 		</form>
 	</section>
-	<br><br><br><br><br>
-	<?php include 'footer.php'; ?>
+
+	<?php include './include/footer.php'; ?>
 </body>
 
 </html>

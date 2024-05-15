@@ -19,7 +19,7 @@ if (!empty($_POST)) {
     if ($query->rowCount() > 0) {
         $_SESSION['username'] = $username;
         header("Location: index.php");
-        exit; 
+        exit;
     } else {
         $error_message = "Nombre de usuario o contraseña incorrectos";
     }
@@ -28,15 +28,17 @@ if (!empty($_POST)) {
 
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <title>Iniciar sesión</title>
-    <?php include 'style.php'; ?>
+    <?php include './include/style.php'; ?>
 
     <style>
         body {
             background-color: #f8f9fa;
         }
+
         .login-container {
             margin-top: 100px;
             background-color: #fff;
@@ -44,18 +46,20 @@ if (!empty($_POST)) {
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
+
         .login-title {
             text-align: center;
             margin-bottom: 30px;
         }
     </style>
 </head>
+
 <body>
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-6 login-container">
                 <h2 class="login-title">Iniciar sesión</h2>
-                <?php if(isset($error_message)): ?>
+                <?php if (isset($error_message)) : ?>
                     <div class="alert alert-danger" role="alert">
                         <?php echo $error_message; ?>
                     </div>
@@ -76,4 +80,5 @@ if (!empty($_POST)) {
         </div>
     </div>
 </body>
+
 </html>

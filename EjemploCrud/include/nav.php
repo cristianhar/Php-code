@@ -3,11 +3,14 @@ if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
 ?>
+
+
 <nav>
     <ul>
         <li>
             <a href="index.php">Inicio</a>
         <li>
+
             <?php if (isset($_SESSION['username'])) { ?>
         <li>
             <a href="listar.php">Personas</a>

@@ -44,7 +44,7 @@ if (!empty($_POST)) {
 <head>
 	<meta charset="utf-8">
 	<title>Gestion de Personas</title>
-	<?php include 'style.php'; ?>
+	<?php include './include/style.php'; ?>
 
 </head>
 
@@ -52,7 +52,7 @@ if (!empty($_POST)) {
 
 	<header>
 		<h1>Agregar Persona</h1>
-		<?php include 'nav.php'; ?>
+		<?php include './include/nav.php'; ?>
 	</header>
 	<section>
 		<?php
@@ -88,8 +88,8 @@ if (!empty($_POST)) {
 
 
 	</section>
-	<br><br>
-	<?php include 'footer.php'; ?>
+
+	<?php include './include/footer.php'; ?>
 </body>
 
 </html>
