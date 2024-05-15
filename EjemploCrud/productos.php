@@ -43,6 +43,7 @@ if (!isset($_SESSION['username'])) {
                     <th>Stock</th>
                     <th>Fecha de Ingreso</th>
                     <th>Acciones</th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
@@ -56,7 +57,12 @@ if (!isset($_SESSION['username'])) {
                         <td><?= $producto['fecha_ingreso']; ?></td>
                         <td>
                             <a href="editar_producto.php?id=<?= $producto['id']; ?>" class="btn btn-primary">Editar</a>
-                            <a href="eliminar_producto.php?id=<?= $producto['id']; ?>" class="btn btn-danger">Eliminar</a>
+                        </td>
+                        <td>
+                            <form method="post" action="eliminar_producto.php">
+                                <input type="hidden" name="id" value="<?= $producto['id']; ?>">
+                                <button type="submit" class="btn btn-danger">Eliminar</button>
+                            </form>
                         </td>
                     </tr>
                 <?php endforeach; ?>
